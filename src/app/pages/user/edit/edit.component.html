@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="d-flex justify-content-between mt-3">
+        <h2 *ngIf="!isEdit">Create user</h2>
+        <h2 *ngIf="isEdit">Update user</h2>
+        <a class="btn btn-primary my-2" routerLink="../../">Terug</a>
+    </div>
+    <hr>
+    <form #userForm="ngForm" (ngSubmit)="userForm.form.valid && onSubmit(userForm)">
+        <input *ngIf="isEdit" type="hidden" id="id" name="id" [(ngModel)]="user!.userId">
+        <div class="form-group my-3">
+            <label for="firstName">Voornaam</label>
+            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Vul hier je voornaam in"
+                #userName="ngModel" [(ngModel)]="user!.firstName" required>
+        </div>
+        <div class="form-group my-3">
+            <label for="lastName">Achternaam</label>
+            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Vul hier je achternaam in"
+                 [(ngModel)]="user!.lastName" required>
+        </div>
+        <div class="form-group my-3">
+            <label for="emailAddress">Email</label>
+            <input type="email" class="form-control" id="emailAddress" name="emailAddress" placeholder="Vul hier je email in"
+                 [(ngModel)]="user!.emailAddress" required>
+        </div>
+        <div class="form-group my-3">
+            <label for="phoneNumber">Telefoonnummer</label>
+            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Vul hier je telefoonnummer in"
+                 [(ngModel)]="user!.phoneNumber" required>
+        </div>
+        <div class="form-group my-3">
+            <label for="city">Stad</label>
+            <input type="text" class="form-control" id="city" name="city" placeholder="Vul hier je stad in"
+                 [(ngModel)]="user!.city" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

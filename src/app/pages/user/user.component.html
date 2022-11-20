@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="d-flex justify-content-between mt-3">
+        <h2>User overview</h2>
+        <a class="btn btn-primary my-2" routerLink="add">Create user</a>
+    </div>
+    <hr>
+    <table class="table table-striped">
+        <thead>
+            <th>Id</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Emailaddress</th>
+            <th>Phonenumber</th>
+            <th>City</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td>{{ user.userId }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.emailAddress }}</td>
+                <td>{{ user.phoneNumber }}</td>
+                <td>{{ user.city }}</td>
+                <td class="text-end">
+                    <a routerLink="{{user.userId}}" class="btn btn-primary mx-2">Details</a>
+                    <a routerLink="{{user.userId}}/edit" class="btn btn-warning mx-2">Edit</a>
+                    <a (click)="deleteUser(user.userId)" class=" btn btn-danger mx-2">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

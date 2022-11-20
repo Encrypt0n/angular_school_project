@@ -2,26 +2,23 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
-import { AComponent } from './pages/a/a.component';
-import { BComponent } from './pages/b/b.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { DetailComponent } from './pages/entity/detail/detail.component';
-import { EditComponent } from './pages/entity/edit/edit.component';
-import { EntityComponent } from './pages/entity/entity.component';
+import { UserDetailComponent } from './pages/user/detail/detail.component';
+import { UserEditComponent } from './pages/user/edit/edit.component';
+import { UserComponent } from './pages/user/user.component';
+import { AboutComponent } from './pages/about/about.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
   { path: 'dashboard', pathMatch: 'full', component: DashboardComponent },
-  { path: 'component-a', pathMatch: 'full', component: AComponent },
-  { path: 'component-b', pathMatch: 'full', component: BComponent },
-  {
-    path: 'users',
-    component: EntityComponent,
-    children: [
-      { path: ':id', pathMatch: 'full', component: DetailComponent },
-      { path: ':id/edit', pathMatch: 'full', component: EditComponent },
-    ],
-  },
+
+  { path: 'users', pathMatch: 'full', component: UserComponent },
+  { path: 'users/add', pathMatch: 'full', component: UserEditComponent },
+  { path: 'users/:id', pathMatch: 'full', component: UserDetailComponent },
+  { path: 'users/:id/edit', pathMatch: 'full', component: UserEditComponent },
+
+  { path: 'about', pathMatch: 'full', component: AboutComponent },
+  
   { path: 'register', pathMatch: 'full', component: RegisterComponent },
   { path: 'login', pathMatch: 'full', component: LoginComponent },
   { path: '**', redirectTo: 'dashboard' },

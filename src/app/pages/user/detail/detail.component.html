@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="d-flex justify-content-between mt-3">
+        <a class="btn btn-primary my-2" routerLink="../">Terug</a>
+        <h2>User details</h2>
+        
+    </div>
+    <hr>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Firstname:</th>
+                <th scope="col">Lastname:</th>
+                <th scope="col">Emailaddress:</th>
+                <th scope="col">Phonenumber:</th>
+                <th scope="col">City:</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                
+                <td>{{ user!.firstName }}</td>
+                <td>{{ user!.lastName }}</td>
+                <td>{{ user!.emailAddress }}</td>
+                <td>{{ user!.phoneNumber }}</td>
+                <td>{{ user!.city }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
