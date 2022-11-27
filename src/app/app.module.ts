@@ -8,6 +8,9 @@ import { NavComponent } from './shared/nav/nav.component';
 import { UserComponent } from './pages/user/user.component';
 import { UserDetailComponent } from './pages/user/detail/detail.component';
 import { UserEditComponent } from './pages/user/edit/edit.component';
+import { SubjectComponent } from './pages/subject/subject.component';
+import { SubjectDetailComponent } from './pages/subject/detail/detail.component';
+import { SubjectEditComponent } from './pages/subject/edit/edit.component';
 import { AboutComponent } from './pages/about/about.component';
 import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -22,6 +25,9 @@ import { FooterComponent } from './shared/footer/footer.component';
     UserComponent,
     UserEditComponent,
     UserDetailComponent,
+    SubjectComponent,
+    SubjectEditComponent,
+    SubjectDetailComponent,
     AboutComponent,
     DashboardComponent,
     LoginComponent,

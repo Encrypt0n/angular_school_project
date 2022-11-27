@@ -6,6 +6,9 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { UserDetailComponent } from './pages/user/detail/detail.component';
 import { UserEditComponent } from './pages/user/edit/edit.component';
 import { UserComponent } from './pages/user/user.component';
+import { SubjectDetailComponent } from './pages/subject/detail/detail.component';
+import { SubjectEditComponent } from './pages/subject/edit/edit.component';
+import { SubjectComponent } from './pages/subject/subject.component';
 import { AboutComponent } from './pages/about/about.component';
 
 const routes: Routes = [
@@ -16,6 +19,11 @@ const routes: Routes = [
   { path: 'users/add', pathMatch: 'full', component: UserEditComponent },
   { path: 'users/:id', pathMatch: 'full', component: UserDetailComponent },
   { path: 'users/:id/edit', pathMatch: 'full', component: UserEditComponent },
+
+  { path: 'subjects', pathMatch: 'full', component: SubjectComponent },
+  { path: 'subjects/add', pathMatch: 'full', component: SubjectEditComponent },
+  { path: 'subjects/:id', pathMatch: 'full', component: SubjectDetailComponent },
+  { path: 'subjects/:id/edit', pathMatch: 'full', component: SubjectEditComponent },
 
   { path: 'about', pathMatch: 'full', component: AboutComponent },
   
