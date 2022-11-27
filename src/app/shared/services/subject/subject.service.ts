@@ -21,15 +21,23 @@ export class SubjectService {
         },
         {
             subjectId: 3,
-            name: "Relationele databases 2",
-            description: "Dit vak gaat over het leggen van relaties in databases en het maken van een ERD",
-            credits: 4
+            name: "Reflecteren",
+            description: "Dit vak gaat over het beheersen en inzien van sociale vlakken binnen " +
+            "je werk als programmeur",
+            credits: 2
         },
         {
             subjectId: 4,
-            name: "Relationele databases 2",
-            description: "Dit vak gaat over het leggen van relaties in databases en het maken van een ERD",
-            credits: 4
+            name: "Bedrijfsprocessen",
+            description: "Dit vak gaat over het leggen van verbanden en snel vaststellen " +
+            "van welke stappen binnen een proces plaatsvinden",
+            credits: 3
+        },
+        {
+            subjectId: 5,
+            name: "Duurzame ontwikkeling",
+            description: "Dit vak gaat over welke rol ons vak speelt binnen het milieu",
+            credits: 1.5
         }
     ]
 
@@ -53,10 +61,10 @@ deleteSubject(id: number) {
     this.subjects.splice(subject, 1);
 }
 
-updateSubject(userToUpdate: Subject) {
+updateSubject(subjectToUpdate: Subject) {
     this.subjects.forEach(subject => {
-        if(subject.subjectId == userToUpdate.subjectId) {
-            subject = userToUpdate;
+        if(subject.subjectId == subjectToUpdate.subjectId) {
+            subject = subjectToUpdate;
         }
     })
 }

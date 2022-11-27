@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="d-flex justify-content-between mt-3">
+        <h2 *ngIf="!isEdit">Create result</h2>
+        <h2 *ngIf="isEdit">Update result</h2>
+        <a class="btn btn-primary my-2" routerLink="../../">Terug</a>
+    </div>
+    <hr>
+    <form #resultForm="ngForm" (ngSubmit)="resultForm.form.valid && onSubmit(resultForm)">
+        <input *ngIf="isEdit" type="hidden" id="id" name="id" [(ngModel)]="result!.resultId">
+        <div class="form-group my-3">
+            <label for="studentId">Student</label>
+            <select id="studentId" name="studentId" #resultStudent="ngModel" [(ngModel)]="result!.studentId" required>
+                <option *ngFor="let user of users" value="{{user.userId}}"> {{user.firstName}} {{user.lastName}} </option>
+            </select>
+        </div>
+        <div class="form-group my-3">
+            <label for="subjectId">Subject</label>
+            <select id="subjectId" name="subjectId" #resultSubject="ngModel" [(ngModel)]="result!.subjectId" required>
+                <option *ngFor="let subject of subjects" value="{{subject.subjectId}}"> {{subject.name}} </option>
+            </select>
+            
+        </div>
+        <div class="form-group my-3">
+            <label for="grade">Grade</label>
+            <input type="number" class="form-control" id="grade" name="grade" placeholder="Fill in a grade here"
+                 [(ngModel)]="result!.grade" required>
+        </div>
+        <div class="form-group my-3">
+            <label for="rating">Rating</label>
+            <input type="text" class="form-control" id="rating" name="rating" placeholder="Fill in a rating here"
+                 [(ngModel)]="result!.rating" required>
+        </div>
+        <div class="form-group my-3">
+            <label for="date">Date</label>
+            <input type="text" class="form-control" id="date" name="date" placeholder="Fill in a date like this 01-01-20000 here"
+                 [(ngModel)]="result!.date" required>
+        </div>
+
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

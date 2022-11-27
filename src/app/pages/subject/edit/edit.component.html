@@ -8,8 +8,8 @@
     <form #subjectForm="ngForm" (ngSubmit)="subjectForm.form.valid && onSubmit(subjectForm)">
         <input *ngIf="isEdit" type="hidden" id="id" name="id" [(ngModel)]="subject!.subjectId">
         <div class="form-group my-3">
-            <label for="firstName">Name</label>
-            <input type="text" class="form-control" id="subjectName" name="subjectName" placeholder="Fill in a name here"
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Fill in a name here"
                 #subjectName="ngModel" [(ngModel)]="subject!.name" required>
         </div>
         <div class="form-group my-3">

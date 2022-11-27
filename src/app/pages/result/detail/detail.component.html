@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="d-flex justify-content-between mt-3">
+        <a class="btn btn-primary my-2" routerLink="../">Terug</a>
+        <h2>Result details</h2>
+        
+    </div>
+    <hr>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Student:</th>
+                <th scope="col">Subject:</th>
+                <th scope="col">Grade:</th>
+                <th scope="col">Rating:</th>
+                <th scope="col">Date:</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ users[result!.studentId - 1].firstName }} {{ users[result!.studentId - 1].lastName }}</td>
+                <td>{{ subjects[result!.subjectId - 1].name }}</td>
+                <td>{{ result!.grade }}</td>
+                <td>{{ result!.rating }}</td>
+                <td>{{ result!.date }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

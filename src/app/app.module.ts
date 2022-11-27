@@ -11,6 +11,9 @@ import { UserEditComponent } from './pages/user/edit/edit.component';
 import { SubjectComponent } from './pages/subject/subject.component';
 import { SubjectDetailComponent } from './pages/subject/detail/detail.component';
 import { SubjectEditComponent } from './pages/subject/edit/edit.component';
+import { ResultComponent } from './pages/result/result.component';
+import { ResultDetailComponent } from './pages/result/detail/detail.component';
+import { ResultEditComponent } from './pages/result/edit/edit.component';
 import { AboutComponent } from './pages/about/about.component';
 import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -28,6 +31,9 @@ import { FooterComponent } from './shared/footer/footer.component';
     SubjectComponent,
     SubjectEditComponent,
     SubjectDetailComponent,
+    ResultComponent,
+    ResultEditComponent,
+    ResultDetailComponent,
     AboutComponent,
     DashboardComponent,
     LoginComponent,
