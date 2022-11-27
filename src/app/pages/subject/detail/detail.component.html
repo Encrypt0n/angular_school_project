@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="d-flex justify-content-between mt-3">
+        <a class="btn btn-primary my-2" routerLink="../">Terug</a>
+        <h2>Subject details</h2>
+        
+    </div>
+    <hr>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name:</th>
+                <th scope="col">Description:</th>
+                <th scope="col">Credits:</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                
+                <td>{{ subject!.name }}</td>
+                <td>{{ subject!.description }}</td>
+                <td>{{ subject!.credits }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

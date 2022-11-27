@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="d-flex justify-content-between mt-3">
+        <h2>Result overview</h2>
+        <a class="btn btn-primary my-2" routerLink="add">Create subject</a>
+    </div>
+    <hr>
+    <table class="table table-striped">
+        <thead>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Subject</th>
+            <th>Grade</th>
+            <th>Rating</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let result of results">
+                <td width="10%">{{ result.resultId }}</td>
+                <td width="15%">{{ users[result.studentId - 1].firstName }} {{ users[result.studentId - 1].lastName }} </td>
+                <td width="20%">{{ subjects[result.subjectId - 1].name }}</td>
+                <td width="10%">{{ result.grade }}</td>
+                <td width="10%">{{ result.rating }}</td>
+                <td class="text-end">
+                    <a routerLink="{{result.resultId}}" class="btn btn-primary mx-2">Details</a>
+                    <a routerLink="{{result.resultId}}/edit" class="btn btn-warning mx-2">Edit</a>
+                    <a (click)="deleteResult(result.resultId)" class=" btn btn-danger mx-2">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

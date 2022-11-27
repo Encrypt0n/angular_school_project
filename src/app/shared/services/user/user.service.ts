@@ -36,6 +36,14 @@ export class UserService {
             emailAddress: "joost@joost.nl",
             phoneNumber: "0612345678",
             city: "Breda"
+        },
+        {
+            userId: 5,
+            firstName: "Nick",
+            lastName: "Westervoorde",
+            emailAddress: "nick@nick.nl",
+            phoneNumber: "0612345678",
+            city: "Dordrecht"
         }
     ]
 

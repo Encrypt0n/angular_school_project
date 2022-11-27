@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="d-flex justify-content-between mt-3">
+        <h2>Subject overview</h2>
+        <a class="btn btn-primary my-2" routerLink="add">Create subject</a>
+    </div>
+    <hr>
+    <table class="table table-striped">
+        <thead>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Credits</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let subject of subjects">
+                <td width="10%">{{ subject.subjectId }}</td>
+                <td width="15%">{{ subject.name }}</td>
+                <td width="40%">{{ subject.description }}</td>
+                <td width="10%">{{ subject.credits }}</td>
+                <td class="text-end">
+                    <a routerLink="{{subject.subjectId}}" class="btn btn-primary mx-2">Details</a>
+                    <a routerLink="{{subject.subjectId}}/edit" class="btn btn-warning mx-2">Edit</a>
+                    <a (click)="deleteSubject(subject.subjectId)" class=" btn btn-danger mx-2">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
