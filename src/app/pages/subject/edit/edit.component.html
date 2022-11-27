@@ -2,7 +2,7 @@
     <div class="d-flex justify-content-between mt-3">
         <h2 *ngIf="!isEdit">Create subject</h2>
         <h2 *ngIf="isEdit">Update subject</h2>
-        <a class="btn btn-primary my-2" routerLink="../../">Terug</a>
+        <a class="btn btn-primary my-2" routerLink="../../">Back</a>
     </div>
     <hr>
     <form #subjectForm="ngForm" (ngSubmit)="subjectForm.form.valid && onSubmit(subjectForm)">

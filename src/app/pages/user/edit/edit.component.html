@@ -2,7 +2,7 @@
     <div class="d-flex justify-content-between mt-3">
         <h2 *ngIf="!isEdit">Create user</h2>
         <h2 *ngIf="isEdit">Update user</h2>
-        <a class="btn btn-primary my-2" routerLink="../../">Terug</a>
+        <a class="btn btn-primary my-2" routerLink="../../">Back</a>
     </div>
     <hr>
     <form #userForm="ngForm" (ngSubmit)="userForm.form.valid && onSubmit(userForm)">
