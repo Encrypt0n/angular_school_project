@@ -19,12 +19,11 @@
           "apps/school-app/src/assets"
         ],
         "styles": [
-          "apps/school-app/src/styles.css",
-          "node_modules/bootstrap/dist/css/bootstrap.min.css"
+          "apps/school-app/src/styles.css"
+          
         ],
         "scripts": [
-          "node_modules/jquery/dist/jquery.min.js",
-          "node_modules/bootstrap/dist/js/bootstrap.min.js"
+         
         ]
       },
       "configurations": {
