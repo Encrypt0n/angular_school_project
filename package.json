@@ -32,7 +32,6 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb-memory-server": "^8.10.1",
     "mongoose": "^6.8.0",
-    "ng-bootstrap": "^1.6.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.0.0",
     "tslib": "^2.3.0",
