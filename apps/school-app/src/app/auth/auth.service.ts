@@ -9,7 +9,7 @@ import { RegisterModel, LoginModel } from '@school-app/data';
 export class AuthService {
     constructor(private httpClient: HttpClient) {}
 
-    private url = 'https://angularschoolproject-production.up.railway.app/api/auth-api'
+    private url = 'http://localhost:3333/api/auth-api'
 
     private headers = new HttpHeaders({
       'Access-Control-Allow-Origin':'*',

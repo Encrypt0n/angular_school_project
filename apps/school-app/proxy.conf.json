@@ -1,6 +1,6 @@
 {
   "/api": {
     "target": "https://angularschoolproject-production.up.railway.app/:3333",
-    "secure": false
+    "secure": true
   }
 }
