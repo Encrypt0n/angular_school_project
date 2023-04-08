@@ -32,8 +32,8 @@ const routes: Routes = [
 
   { path: 'results', pathMatch: 'full', component: ResultComponent },
   { path: 'results/add', pathMatch: 'full', component: ResultEditComponent },
-  { path: 'results/:id', pathMatch: 'full', component: ResultDetailComponent },
-  { path: 'results/:id/edit', pathMatch: 'full', component: ResultEditComponent },
+  { path: 'results/:studentId/:id', pathMatch: 'full', component: ResultDetailComponent },
+  { path: 'results/:studentId/:id/edit', pathMatch: 'full', component: ResultEditComponent },
 
   { path: 'about', pathMatch: 'full', component: AboutComponent },
   

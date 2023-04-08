@@ -1,7 +1,7 @@
 <div class="container">
     <div class="d-flex justify-content-between mt-3">
         <h2>Result overview</h2>
-        <a class="btn btn-primary my-2" routerLink="add">Create result</a>
+        <a class="btn btn-primary my-2" routerLink="add" *ngIf="user?.role === 'teacher'">Create result</a>
     </div>
     <hr>
     <table class="table table-striped">
@@ -14,16 +14,25 @@
         </thead>
         <tbody>
             <tr *ngFor="let result of results">
-                <td width="10%">{{ result.resultId }}</td>
-                <td width="15%">{{ users[result.studentId - 1].firstName }} {{ users[result.studentId - 1].lastName }} </td>
-                <td width="20%">{{ subjects[result.subjectId - 1].name }}</td>
+                
+                  
+                 
+                <td width="10%">{{ result.id }}</td>
+                <ng-container *ngFor="let user of users">
+                <td width="15%" *ngIf="result.studentId === user.id">{{ user.firstName }} </td>
+                </ng-container>
+                <ng-container *ngFor="let subject of subjects">
+                    <td width="10%" *ngIf="result.subject === subject._id">{{ subject.name }} </td>
+                    </ng-container>
+                
                 <td width="10%">{{ result.grade }}</td>
                 <td width="10%">{{ result.rating }}</td>
                 <td class="text-end">
-                    <a routerLink="{{result.resultId}}" class="btn btn-primary mx-2">Details</a>
-                    <a routerLink="{{result.resultId}}/edit" class="btn btn-warning mx-2">Edit</a>
-                    <a (click)="deleteResult(result.resultId)" class=" btn btn-danger mx-2">Delete</a>
+                    <a routerLink="{{result.studentId}}/{{result.id}}" class="btn btn-primary mx-2">Details</a>
+                    <a routerLink="{{result.studentId}}/{{result.id}}/edit" class="btn btn-warning mx-2" *ngIf="user?.role === 'teacher'">Edit</a>
+                    <a (click)="deleteResult(result.studentId, result.id)" class=" btn btn-danger mx-2" *ngIf="user?.role === 'teacher'">Delete</a>
                 </td>
+                
             </tr>
         </tbody>
     </table>

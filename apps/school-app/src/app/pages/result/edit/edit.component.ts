@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
-import { Result } from 'apps/school-app/src/app/shared/models/result.model';
+
 import { ResultService } from 'apps/school-app/src/app/shared/services/result/result.service';
 import { User } from 'apps/school-app/src/app/shared/models/user.model';
 import { UserService } from 'apps/school-app/src/app/shared/services/user/user.service';
-import { Subject } from 'apps/school-app/src/app/shared/models/subject.model';
+
 import { SubjectService } from 'apps/school-app/src/app/shared/services/subject/subject.service';
+import { Result } from 'libs/data/src/lib/result.model';
+import { Subject } from '@school-app/data';
 
 
 @Component({
@@ -15,28 +17,50 @@ import { SubjectService } from 'apps/school-app/src/app/shared/services/subject/
   styleUrls: ['../edit/edit.component.css']
 })
 export class ResultEditComponent implements OnInit {
-  result: Result | undefined;
+  result: Result = new Result();
   users: User[] = [];
   subjects: Subject[] = [];
   isEdit: boolean = false;
+  results: Result[] = [];
 
   constructor(private resultService: ResultService, private userService: UserService, private subjectService: SubjectService,  private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    this.users = this.userService.getAllUsers();
-    this.subjects = this.subjectService.getAllSubjects();
+    
+    this.userService.getAllUsers().subscribe((users) => {
+      this.users = users.filter(user => user.role === "student");
+      
+      console.log(users);
+    });
+    this.subjectService.getAllSubjects().subscribe((subjects) => {
+      this.subjects = subjects;
+      console.log(subjects);
+    });
 
     this.route.paramMap.subscribe((params) => {
       let id = params.get("id");
+      let studentId = params.get("studentId");
       if (id) {
         this.isEdit = true;
-        this.result = this.resultService.getResultById(Number(id));
+        
+        this.resultService.getResultById(studentId!, id).subscribe((result) => {
+          //this.result.subjectId = result.subjectId.id;
+          this.result = {
+            id: result.id,
+            studentId: result.studentId,
+            subject: result.subject,
+            grade: result.grade,
+            rating: result.rating,
+            date: result.date,
+            
+          }
+      })
       } else {
         this.isEdit = false;
         this.result = {
-          resultId: 0,
-          studentId: 0,
-          subjectId: 0,
+          id: "",
+          studentId: "",
+          subject: new Subject(),
           grade: 0,
           rating: "",
           date: "",
@@ -47,16 +71,28 @@ export class ResultEditComponent implements OnInit {
   }
 
   onSubmit(resultForm: NgForm): void {
-    
+    this.resultService.getAllResults().subscribe((results) => {
+      this.results = {
+        ...results,
+        ...resultForm.value
+      }
+      console.log(results);
+    });
     if (this.isEdit) {
-      this.resultService.updateResult(resultForm.value)
+      this.route.paramMap.subscribe((param) => {
+      this.resultService.updateResult(param.get('studentId')!, this.result.id, resultForm.value).subscribe((data: any) => {
+        //this.getRe(+this.route.snapshot.paramMap.get('id')!);
+      });
+    });
     } else {
       let result = {
-        resultId: this.resultService.getAllResults().length + 1,
+        id: this.results.length + 1,
         ...resultForm.value
       };
       console.log(result);
-      this.resultService.addResult(result);
+      this.resultService.addResult(result).subscribe((data: any) => {
+        //this.getRe(+this.route.snapshot.paramMap.get('id')!);
+      });
     }
     console.log(this.result);
     this.router.navigate(['results']);

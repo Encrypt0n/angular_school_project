@@ -19,8 +19,9 @@
         </thead>
         <tbody>
             <tr>
-                <td>{{ users[result!.studentId - 1].firstName }} {{ users[result!.studentId - 1].lastName }}</td>
-                <td>{{ subjects[result!.subjectId - 1].name }}</td>
+                <td>{{ user!.firstName }} </td>
+                <td>{{result!.subject!.name}}</td>
+                
                 <td>{{ result!.grade }}</td>
                 <td>{{ result!.rating }}</td>
                 <td>{{ result!.date }}</td>

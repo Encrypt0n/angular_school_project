@@ -6,7 +6,7 @@
     </div>
     <hr>
     <form #subjectForm="ngForm" (ngSubmit)="subjectForm.form.valid && onSubmit(subjectForm)">
-        <input *ngIf="isEdit" type="hidden" id="id" name="id" [(ngModel)]="subject!.subjectId">
+        <input *ngIf="isEdit" type="hidden" id="id" name="id" [(ngModel)]="subject!.id">
         <div class="form-group my-3">
             <label for="name">Name</label>
             <input type="text" class="form-control" id="name" name="name" placeholder="Fill in a name here"

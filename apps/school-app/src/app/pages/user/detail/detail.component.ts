@@ -1,7 +1,7 @@
 import { UserService } from 'apps/school-app/src/app/shared/services/user/user.service';
 import { ActivatedRoute } from '@angular/router';
-import { User } from 'apps/school-app/src/app/shared/models/user.model';
 import { Component, OnInit } from '@angular/core';
+import { User } from 'libs/data/src/lib/user.model';
 
 @Component({
     selector: 'app-userDetail',
@@ -9,12 +9,20 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['../detail/detail.component.css']
 })
 export class UserDetailComponent implements OnInit {
-    user: User | null = null;
+    
+    user: User = new User();
     constructor(private userService: UserService, private route: ActivatedRoute) {}
 
-    ngOnInit(): void {
+    async ngOnInit(): Promise<void> {
         this.route.paramMap.subscribe((param) => {
-            this.user = this.userService.getUserById(Number(param.get('id')));
+            
+            this.userService.getUserById(param.get('id') as string).subscribe((user) => {
+                this.user.id = user.id;
+                this.user.firstName = user.firstName;
+                this.user.lastName = user.lastName;
+                this.user.emailAddress = user.emailAddress;
+            })
         })
+        console.log(this.user);
     }
 }

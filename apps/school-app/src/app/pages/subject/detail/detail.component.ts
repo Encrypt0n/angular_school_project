@@ -13,8 +13,17 @@ export class SubjectDetailComponent implements OnInit {
     constructor(private subjectService: SubjectService, private route: ActivatedRoute) {}
 
     ngOnInit(): void {
+        
         this.route.paramMap.subscribe((param) => {
-            this.subject = this.subjectService.getSubjectById(Number(param.get('id')));
+            
+            console.log(param.get('id'));
+            
+            this.subjectService.getSubjectById(param.get('id')).subscribe((subject) => {
+               
+                this.subject = subject;
+                console.log(subject);
+                
+            })
         })
     }
 }

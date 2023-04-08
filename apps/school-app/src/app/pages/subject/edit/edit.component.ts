@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
-import { Subject } from 'apps/school-app/src/app/shared/models/subject.model';
+
 import { SubjectService } from 'apps/school-app/src/app/shared/services/subject/subject.service';
+import { Subject } from 'libs/data/src/lib/subject.model';
 
 @Component({
   selector: 'app-subjectEdit',
@@ -10,8 +11,9 @@ import { SubjectService } from 'apps/school-app/src/app/shared/services/subject/
   styleUrls: ['../edit/edit.component.css']
 })
 export class SubjectEditComponent implements OnInit {
-  subject: Subject | undefined;
+  subject: Subject = new Subject();
   isEdit: boolean = false;
+  subjects: Subject[] = [];
 
   constructor(private subjectService: SubjectService, private route: ActivatedRoute, private router: Router) { }
 
@@ -20,14 +22,19 @@ export class SubjectEditComponent implements OnInit {
       let id = params.get("id");
       if (id) {
         this.isEdit = true;
-        this.subject = this.subjectService.getSubjectById(Number(id));
+       
+        this.subjectService.getSubjectById(id).subscribe((subject) => {
+          this.subject = subject;
+      })
+        
       } else {
         this.isEdit = false;
         this.subject = {
-          subjectId: 0,
+          id: "",
           name: "",
           description: "",
           credits: 0,
+          students: []
           
         }
       }
@@ -35,14 +42,26 @@ export class SubjectEditComponent implements OnInit {
   }
 
   onSubmit(subjectForm: NgForm): void {
+    this.subjectService.getAllSubjects().subscribe((subjects) => {
+      this.subjects = subjects;
+      console.log(subjects);
+    });
     if (this.isEdit) {
-      this.subjectService.updateSubject(subjectForm.value)
+      console.log(subjectForm.value);
+      
+      this.subjectService.updateSubject(this.subject.id, subjectForm.value).subscribe((data: any) => {
+        //this.getRe(+this.route.snapshot.paramMap.get('id')!);
+      });
     } else {
       let subject = {
-        subjectId: this.subjectService.getAllSubjects().length + 1,
+        id: this.subjects.length + 1,
         ...subjectForm.value
       };
-      this.subjectService.addSubject(subject);
+      console.log(subject);
+      
+      this.subjectService.addSubject(subject).subscribe((data: any) => {
+        //this.getRe(+this.route.snapshot.paramMap.get('id')!);
+      });
     }
 
     this.router.navigate(['subjects']);
