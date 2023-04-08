@@ -12,6 +12,7 @@ import { UserService } from 'apps/school-app/src/app/shared/services/user/user.s
 export class UserEditComponent implements OnInit {
   user: User | undefined;
   isEdit: boolean = false;
+  users: User[] = [];
 
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) { }
 
@@ -20,30 +21,36 @@ export class UserEditComponent implements OnInit {
       let id = params.get("id");
       if (id) {
         this.isEdit = true;
-        this.user = this.userService.getUserById(Number(id));
+      
+        this.userService.getUserById(id).subscribe((user) => {
+          this.user = user;
+      })
       } else {
         this.isEdit = false;
         this.user = {
-          userId: 0,
+          id: "",
           firstName: "",
           lastName: "",
           emailAddress: "",
           phoneNumber: "",
           city: "",
+          role: "",
         }
       }
     })
   }
 
   onSubmit(userForm: NgForm): void {
+    this.userService.getAllUsers().subscribe((users) => {
+      this.users = users;
+      console.log(users);
+    });
     if (this.isEdit) {
-      this.userService.updateUser(userForm.value)
+      this.userService.updateUser(userForm.value).subscribe((data: any) => {
+        //this.getRe(+this.route.snapshot.paramMap.get('id')!);
+      });
     } else {
-      let user = {
-        userId: this.userService.getAllUsers().length + 1,
-        ...userForm.value
-      };
-      this.userService.addUser(user);
+     
     }
 
     this.router.navigate(['users']);

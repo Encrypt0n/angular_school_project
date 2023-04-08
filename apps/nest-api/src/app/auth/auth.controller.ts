@@ -11,12 +11,14 @@ export class AuthController {
     @Post('register')
     async register(@Body() credentials: UserRegistration): Promise<ResourceId> {
         try {
+            
             await this.authService.registerUser(credentials.firstName, credentials.lastName, credentials.emailAddress, credentials.password, credentials.role);
-    
+            console.log("credentials", credentials);
             return {
                 id: await this.authService.createUser(credentials.firstName, credentials.lastName, credentials.emailAddress, credentials.role),
             };
         } catch (e) {
+            console.log(e);
             throw new HttpException('Username invalid', HttpStatus.BAD_REQUEST);
         }
     }

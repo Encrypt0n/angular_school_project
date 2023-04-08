@@ -13,6 +13,7 @@
                 <th scope="col">Name:</th>
                 <th scope="col">Description:</th>
                 <th scope="col">Credits:</th>
+                <th scope="col">Students:</th>
             </tr>
         </thead>
         <tbody>
@@ -21,6 +22,9 @@
                 <td>{{ subject!.name }}</td>
                 <td>{{ subject!.description }}</td>
                 <td>{{ subject!.credits }}</td>
+                <ng-container *ngFor="let student of subject!.students">
+                    <td width="10%" >{{ student.firstName }} </td>
+                    </ng-container>
             </tr>
         </tbody>
     </table>

@@ -4,7 +4,7 @@ import { UserController } from './user.controller';
 
 import { UserService } from './user.service';
 
-describe('TopicController', () => {
+describe('UserController', () => {
   let app: TestingModule;
   let userController: UserController;
   let userService: UserService;

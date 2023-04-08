@@ -85,12 +85,12 @@ describe('AuthService', () => {
       const exampleUser = {emailAddress: 'dion@avans.nl', password: 'ditisnietmijnwachtwoord'};
 
       await mongoc.db('test').collection('identities').insertOne({
-        emaailAddress: exampleUser.emailAddress,
+        emailAddress: exampleUser.emailAddress,
         hash: hashSync(exampleUser.password, parseInt(process.env.SALT_ROUNDS, 10)),
       });
       await mongoc.db('test').collection('users').insertOne({
         emailAddress: exampleUser.emailAddress,
-        userId: '1',
+        id: '1',
       });
 
       const token = await service.generateToken(exampleUser.emailAddress, exampleUser.password);
@@ -116,9 +116,9 @@ describe('AuthService', () => {
 
   describe('register user', () => {
     it('should register a new user', async () => {
-      const exampleUser = {firstName: 'henk', lastName: 'klaasen', password: 'Welkom01', emailAddress: 'henk@mail.com', role: 'student'};
+      const exampleUser = {firstName: 'piet', lastName: 'klaasen', password: 'Welkom01', emailAddress: 'piet@mail.com', role: 'student'};
 
-      await service.registerUser(exampleUser.firstName, exampleUser.lastName, exampleUser.password, exampleUser.emailAddress, exampleUser.role);
+      await service.registerUser(exampleUser.firstName, exampleUser.lastName, exampleUser.emailAddress, exampleUser.password, exampleUser.role);
 
       const record = await mongoc.db("test").collection("identities").findOne({emailAddress: exampleUser.emailAddress});
 

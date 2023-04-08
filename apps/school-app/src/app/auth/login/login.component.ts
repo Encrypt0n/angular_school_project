@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginModel } from '@school-app/data';
 import { AuthService } from '../auth.service';
 import {Router} from '@angular/router';
+import { IToken } from '../auth.interface';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): string {
     console.log('login user');
-    this.authService.loginUser(this.loginUser!).subscribe((token: string) => {
+    this.authService.loginUser(this.loginUser!).subscribe((token: string | undefined) => {
       this.router.navigate(['']);
       console.log('user logged in');
       console.log(token);

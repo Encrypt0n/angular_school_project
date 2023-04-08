@@ -1,6 +1,11 @@
+import { User } from "@school-app/data";
+import { ObjectId } from "mongoose";
+
 export interface Subject {
-    subjectId: number;
+    _id: Subject;
+    id: string;
     name: string;
     description: string;
     credits: number;
+    students: User[];
 }

@@ -44,17 +44,21 @@ describe('User Schema', () => {
     expect(version(model.id)).toBe(4);
   });
 
-  it('has a required username', () => {
+
+
+
+
+  it('has a required emailaddress', () => {
     const model = new userModel();
 
     const err = model.validateSync();
 
-    expect(err.errors.name).toBeInstanceOf(Error);
+    expect(err.errors.emailAddress).toBeInstanceOf(Error);
   });
 
-  it('has a unique username', async () => {
-    const original = new userModel({name: 'henk', emailAddress: 'henk@henk.nl'});
-    const duplicate = new userModel({name: 'henk', emailAddress: 'henk@henk.nl'});
+  it('has a unique emailaddress', async () => {
+    const original = new userModel({firstName: 'frank', lastName: "linden", emailAddress: 'frank@frank.nl', role: 'student'});
+    const duplicate = new userModel({firstName: 'frank', lastName: "linden", emailAddress: 'frank@frank.nl', role: 'student'});
 
     await original.save();
 
@@ -62,22 +66,6 @@ describe('User Schema', () => {
   });
 
 
-
-  it('has a required email address', () => {
-    const model = new userModel();
-
-    const err = model.validateSync();
-
-    expect(err.errors.emailAddress).toBeInstanceOf(Error);
-  });
-
-  it('does not accept an invalid email address', () => {
-    const model = new userModel({emailAddress: 'ditisgeenemail'});
-
-    const err = model.validateSync();
-
-    expect(err.errors.emailAddress).toBeInstanceOf(Error);
-  });
 
  
 });

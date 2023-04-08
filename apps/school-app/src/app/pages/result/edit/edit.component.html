@@ -6,17 +6,17 @@
     </div>
     <hr>
     <form #resultForm="ngForm" (ngSubmit)="resultForm.form.valid && onSubmit(resultForm)">
-        <input *ngIf="isEdit" type="hidden" id="id" name="id" [(ngModel)]="result!.resultId">
+        <input *ngIf="isEdit" type="hidden" id="id" name="id" [(ngModel)]="result!.id">
         <div class="form-group my-3">
             <label for="studentId">Student</label>
             <select id="studentId" name="studentId" #resultStudent="ngModel" [(ngModel)]="result!.studentId" required>
-                <option *ngFor="let user of users" value="{{user.userId}}"> {{user.firstName}} {{user.lastName}} </option>
+                <option *ngFor="let user of users" value="{{user.id}}"> {{user.firstName}} {{user.lastName}} </option>
             </select>
         </div>
         <div class="form-group my-3">
             <label for="subjectId">Subject</label>
-            <select id="subjectId" name="subjectId" #resultSubject="ngModel" [(ngModel)]="result!.subjectId" required>
-                <option *ngFor="let subject of subjects" value="{{subject.subjectId}}"> {{subject.name}} </option>
+            <select id="subject" name="subject" #resultSubject="ngModel" [(ngModel)]="result!.subject" required>
+                <option *ngFor="let subject of subjects" value="{{subject.id}}"> {{subject.name}} </option>
             </select>
             
         </div>

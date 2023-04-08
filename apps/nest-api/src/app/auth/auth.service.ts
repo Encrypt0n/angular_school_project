@@ -18,8 +18,9 @@ export class AuthService {
 
     async createUser(firstName: string, lastName: string, emailAddress: string, role: string): Promise<string> {
         const user = new this.userModel({firstName, lastName, emailAddress, role});
+        console.log("user", user);
         await user.save();
-        console.log(user.id);
+       
         return user.id;
       }
 
@@ -36,8 +37,36 @@ export class AuthService {
         const generatedHash = await hash(password, parseInt(process.env.SALT_ROUNDS, 10));
 
         const identity = new this.identityModel({hash: generatedHash, emailAddress});
-
+        //console.log(identity);
+        
+        console.log(identity);
         await identity.save();
+        console.log("identity", identity);
+        
+    }
+
+    async getOne(id: string): Promise<User> {
+        console.log('API: get one User (id: ' + id + ') aangeroepen!');
+        const user = await this.userModel.aggregate([{ $match: { id: id } }]);
+        return user[0];
+    }
+
+    async getAll(): Promise<User[]> {
+        console.log('API: get all Users aangeroepen!');
+        const users = await this.userModel.find();
+        return users;
+    }
+
+    async editOne(id: string, newData: User): Promise<User> {
+        console.log('API: update one user (id: ' + id + ') aangeroepen!');
+        let output;
+        try {
+            output = await this.userModel.updateOne(newData)
+        } catch (error) {
+            console.log(error);
+        }
+
+        return output;
     }
 
     async generateToken(emailAddress: string, password: string): Promise<string> {

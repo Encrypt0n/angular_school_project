@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'apps/school-app/src/app/shared/models/user.model';
 import { UserService } from 'apps/school-app/src/app/shared/services/user/user.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user',
@@ -8,16 +9,55 @@ import { UserService } from 'apps/school-app/src/app/shared/services/user/user.s
   styleUrls: ['../user/user.component.css']
 })
 export class UserComponent implements OnInit {
-    users: User[] = [];
+  users: User[] = [];
+  userTokenData: any;
+  userr: User | null = null;
 
     constructor(private userService: UserService) { }
 
-    ngOnInit(): void {
-      this.users = this.userService.getAllUsers();
+    async ngOnInit(): Promise<void> {
+      this.userTokenData = this.userService.decodeJwtToken(this.userService.getAuthorizationToken()!) as any;
+
+
+      console.log("userTokenData", this.userTokenData);
+
+      this.userService.getUserById(this.userTokenData["id"] as string | undefined).subscribe((user) => {
+        this.userr = user;
+        console.log(this.userr);
+        
+        this.getUsers();
+       })
+       //console.log(this.userr);
+       
+
+      //await this.getUsers();
     }
+
+    async getUsers(): Promise<void> {
+
+      if(this.userr?.role === "teacher") {
+        this.userService.getAllUsers().subscribe((users) => {
+          this.users = users;
+          console.log(users);
+        });
+      } else {
+        this.userService.getUserById(this.userTokenData["id"] as string | undefined).subscribe((user) => {
+          this.users.push(user);
+          console.log(user);
+        });
+    }
+
+  }
+
+
   
-    deleteUser(id: number) {
-      this.userService.deleteUser(id)
+    async deleteUser(id: string) {
+      console.log('userid', id);
+      
+      this.userService.deleteUser(id).subscribe((user) => {
+        console.log('deleted user', user);
+        
+      });
     }
 
 }

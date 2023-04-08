@@ -6,3 +6,5 @@ export * from './auth.interface';
 export * from './user.model';
 export * from './register.model';
 export * from './login.model';
+export * from './subject.model';
+export * from './result.model';

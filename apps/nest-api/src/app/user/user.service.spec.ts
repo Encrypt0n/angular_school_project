@@ -15,26 +15,29 @@ describe('UserService', () => {
   let mongoc: MongoClient;
   let userModel: Model<UserDocument>;
 
-
-  
-
-  const testUsers = [
-  {
-    id: '1',
-    firstName: 'dion',
-    lastName: 'koeze',
-    emailAddress: 'mail@address.com',
+  const testUsers = [{
+   // id: 'jan123',
+    firstName: 'jan',
+    lastName: 'jansen',
+    emailAddress: 'janjansen@address.com',
     role: 'teacher'
   }, {
-    id: '2',
+   // id: 'dion123',
+    firstName: 'dion',
+    lastName: 'koeze',
+    emailAddress: 'dionkoeze@address.com',
+    role: 'teacher'
+  }, {
+    //id: 'davide123',
     firstName: 'davide',
     lastName: 'ambesi',
-    emailAddress: 'mail@address.com',
-    role: 'teacher'
+    emailAddress: 'davideambesi@address.com',
+    role: 'student'	
   }];
   
   beforeAll(async () => {
-    let uri: string;
+    // eslint-disable-next-line prefer-const
+    let uri = '';
     
     const app = await Test.createTestingModule({
       imports: [
@@ -46,14 +49,12 @@ describe('UserService', () => {
           },
         }),
         MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
- 
       ],
       providers: [UserService],
     }).compile();
 
     service = app.get<UserService>(UserService);
     userModel = app.get<Model<UserDocument>>(getModelToken(User.name));
-
 
     mongoc = new MongoClient(uri);
     await mongoc.connect();
@@ -62,15 +63,11 @@ describe('UserService', () => {
   beforeEach(async () => {
     await mongoc.db('test').collection('users').deleteMany({});
 
-
     const user1 = new userModel(testUsers[0]);
     const user2 = new userModel(testUsers[1]);
+    const user3 = new userModel(testUsers[2]);
 
-
-
-
-
-    await Promise.all([user1.save(), user2.save()]);
+    await Promise.all([user1.save(), user2.save(), user3.save()]);
   });
 
   afterAll(async () => {
@@ -84,20 +81,33 @@ describe('UserService', () => {
       const results = await service.getAll();
   
       expect(results).toHaveLength(3);
+      expect(results.map(r => r.firstName)).toContain('jan');
+      expect(results.map(r => r.lastName)).toContain('jansen');
       expect(results.map(r => r.firstName)).toContain('dion');
+      expect(results.map(r => r.lastName)).toContain('koeze');
       expect(results.map(r => r.firstName)).toContain('davide');
+      expect(results.map(r => r.lastName)).toContain('ambesi');
+   
     });
-    
 
+    it('gives the email, id, name', async () => {
+      const results = await service.getAll();
 
-
+      expect(results[0]).toHaveProperty('id');
+      expect(results[0]).toHaveProperty('firstName');
+      expect(results[0]).toHaveProperty('lastName');
+      expect(results[0]).toHaveProperty('emailAddress');
+      expect(results[0]).toHaveProperty('role');
+    });
   });
 
   describe('getOne', () => {
     it('should retrieve a specific user', async () => {
-      const result = await service.getOne('1');
+      const results = await service.getAll();
 
-      expect(result).toHaveProperty('firstName', 'dion');
+      const result = await service.getOne(results[0].id);
+
+      expect(result).toHaveProperty('firstName', 'jan');
     });
     
     it('returns null when user is not found', async () => {
@@ -105,10 +115,5 @@ describe('UserService', () => {
       
       expect(result).toBeUndefined();
     });
-    
-   
-    
-
-    
   });
 });

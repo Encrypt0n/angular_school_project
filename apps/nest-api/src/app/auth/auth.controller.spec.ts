@@ -35,8 +35,11 @@ describe('AuthController', () => {
 
     beforeEach(() => {
       exampleUser = {
+        firstName: 'Henk',
+        lastName: 'Jansen',
         emailAddress: 'henk@email.com',
-        password: 'Welkom01'
+        password: 'Welkom01',
+        role: 'student',
       }
       exampleId = '2';
 
@@ -52,8 +55,8 @@ describe('AuthController', () => {
 
       const id = await authController.register(exampleUser);
 
-      expect(register).toHaveBeenCalledWith(exampleUser.password, exampleUser.emailAddress);
-      expect(create).toHaveBeenCalledWith(exampleUser.emailAddress);
+      expect(register).toHaveBeenCalledWith(exampleUser.firstName, exampleUser.lastName, exampleUser.emailAddress, exampleUser.password, exampleUser.role);
+      expect(create).toHaveBeenCalledWith(exampleUser.firstName, exampleUser.lastName, exampleUser.emailAddress, exampleUser.role);
       expect(id).toHaveProperty('id', exampleId);
     });
 
@@ -70,8 +73,9 @@ describe('AuthController', () => {
   describe('login', () => {
     it('should call the generateToken method of the auth service', async () => {
       const exampleUser = {
-        emailAddress: 'henk@mail.com',
+        emailAddress: 'henk@email.com',
         password: 'Welkom01',
+       
       };
       const mockedToken: Token = {token: 'mockedToken'};
 

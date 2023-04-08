@@ -44,22 +44,7 @@ describe('Identity Schema', () => {
     await mongoc.close();
   });
 
-  it('has a required username', () => {
-    const model = new identityModel();
-
-    const err = model.validateSync();
-
-    expect(err.errors.username).toBeInstanceOf(Error);
-  });
-
-  it('has a unique username', async () => {
-    const original = new identityModel({username: 'samename', hash: 'h123', emailAddress: 'me@mail.com'});
-    const duplicate = new identityModel({username: 'samename', hash: 'h456', emailAddress: 'you@mail.com'});
-
-    await original.save();
-    
-    await expect(duplicate.save()).rejects.toThrow();
-  });
+  
 
   it('has a required email', () => {
     const model = new identityModel();
