@@ -20,7 +20,7 @@ export class ResultService {
 
 constructor(private httpClient: HttpClient, private userService: UserService) {}
 
-private url = 'http://localhost:3333/api/data-api'
+private url = 'https://angularschoolproject-production.up.railway.app/api/data-api'
 
 
 getAllResults(): Observable<Result[]> {

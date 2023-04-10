@@ -17,7 +17,7 @@ export class EducationService {
 
 constructor(private httpClient: HttpClient) {}
 
-private url = 'http://localhost:3333/api/data-api'
+private url = 'https://angularschoolproject-production.up.railway.app/api/data-api'
 
 getAllEducations(): Observable<Education[]> {
     return this.httpClient
