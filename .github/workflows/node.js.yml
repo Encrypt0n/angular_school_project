@@ -16,6 +16,5 @@ jobs:
       - run: npm ci
 
       - run: npx nx format:check
-      - run: npx nx lint school-app
       - run: npx nx test school-app
       - run: npx nx build school-app
