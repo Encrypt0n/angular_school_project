@@ -16,7 +16,7 @@ export class AuthService {
      
     }
 
-    private url = 'http://localhost:3333/api/auth-api'
+    private url = 'https://angularschoolproject-production.up.railway.app/api/auth-api'
     
 
     private headers = new HttpHeaders({
