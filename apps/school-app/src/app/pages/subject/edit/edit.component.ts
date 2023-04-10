@@ -47,7 +47,7 @@ export class SubjectEditComponent implements OnInit {
           credits: 0,
           educations: [],
           education: "",
-          students: []
+       
           
         }
       }

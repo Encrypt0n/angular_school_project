@@ -20,7 +20,7 @@ import { ResultService } from './result/result.service';
 import { ResultController } from './result/result.controller';
 import { ResultSchema } from './result/result.schema';
 import { Result } from '@school-app/data';
-import { Neo4jService } from './neo4j/neo4j.service';
+
 
 @Module({
     imports: [
@@ -40,7 +40,8 @@ import { Neo4jService } from './neo4j/neo4j.service';
                   return schema;
                 },
               },
-        ])
+        ]),
+      
     ],
     controllers: [UserController, AuthController, SubjectController, EducationController, ResultController],
     providers: [UserService, AuthService, SubjectService, EducationService, ResultService],

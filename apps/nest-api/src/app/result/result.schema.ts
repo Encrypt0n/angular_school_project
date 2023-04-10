@@ -52,9 +52,6 @@ export class Result {
 
 
 
-
-    /*@Prop({ type: AddressSchema })
-    address: Address;*/
 }
 
 export const ResultSchema = SchemaFactory.createForClass(Result);

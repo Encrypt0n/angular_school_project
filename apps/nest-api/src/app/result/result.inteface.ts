@@ -7,5 +7,5 @@ export interface ResultBody {
     subject: string;
     grade: number;
     rating: string;
-    date: string;
+  
 }

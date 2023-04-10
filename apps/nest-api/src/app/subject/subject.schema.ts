@@ -32,18 +32,7 @@ export class Subject {
     @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Education' })
     educations: Education[];
 
-    @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'User' })
-    students: User[];
 
-    /*@Prop({type: [UserSchema]})
-    students: User[];*/
-
-
-
-
-
-    /*@Prop({ type: AddressSchema })
-    address: Address;*/
 }
 
 export const SubjectSchema = SchemaFactory.createForClass(Subject);

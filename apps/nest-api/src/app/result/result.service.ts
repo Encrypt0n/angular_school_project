@@ -32,11 +32,7 @@ export class ResultService {
     async getAllByStudent(id: string): Promise<Result[]> {
         let student: User = await this.userModel.findOne({id: id}).populate('results.subject');
         console.log('API: get all results by student aangeroepen!');
-        console.log(id);
-        //let student = this.userModel.find({id: id});
-       // student.results
-       //strs.filter(s => s.includes('val'));
-       // console.log("results", student.results.filter(s => s.id === "a150b380-e86e-457b-8392-d66b2ce0b3b3"));
+    
         return student.results;
             
        
@@ -53,30 +49,20 @@ export class ResultService {
         const result = new this.resultModel({studentId, subject: subjectt._id, grade, rating});
         console.log("result", result);
 
-        //student.results = ;
+        
         
         student.results.push(result);
-        student.subjects.push(subjectt._id);
         
         
         
-        //console.log("result", result);
         
-        //await this.authService.editOne(studentId, student);
-        //await result.save();
-
-        //const subject = new this.subjectModel({name, description, credits});
-        //console.log("subject", subject);
-        //await subject.save();
-       
-       // return subject.id;
         
 
         await student.save();
 
-        subjectt.students.push(student._id);
+        
 
-        await subjectt.save();
+       
        
         return student.id;
       }
@@ -104,13 +90,7 @@ export class ResultService {
 
 
        console.log("subject", subject);
-       
 
-   // some angular libraries require breaking the array reference
-   // to pick up the update in the array and trigger change detection.
-   // In that case, you can do following
-
-   //this.itemArray.items = Object.assign([], this.itemArray.items);
 
         let output;
         try {

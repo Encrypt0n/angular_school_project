@@ -8,15 +8,15 @@ export class Subject {
     credits: number = 0;
     educations: Education[] = [];
     education: string = '';
-    students: User[] = [];
+    
 
-    constructor(id = '', name = '', description = '', credits = 0, educations = [], students = [], education = '') {
+    constructor(id = '', name = '', description = '', credits = 0, educations = [], education = '') {
         this.id = id;
         this.name = name;
         this.description = description;
         this.credits = credits;
         this.educations = educations;
-        this.students = students;
+
         this.education = education;
     }
 }

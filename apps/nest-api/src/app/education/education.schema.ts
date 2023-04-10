@@ -32,15 +32,7 @@ export class Education {
     subjects: Subject[];
 
     
-    /*@Prop({type: [UserSchema]})
-    students: User[];*/
-
-
-
-
-
-    /*@Prop({ type: AddressSchema })
-    address: Address;*/
+   
 }
 
 export const EducationSchema = SchemaFactory.createForClass(Education);
