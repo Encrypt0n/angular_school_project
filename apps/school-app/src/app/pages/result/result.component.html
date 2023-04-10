@@ -6,7 +6,7 @@
     <hr>
     <table class="table table-striped">
         <thead>
-            <th>Id</th>
+          
             <th>Name</th>
             <th>Subject</th>
             <th>Grade</th>
@@ -17,7 +17,7 @@
                 
                   
                  
-                <td width="10%">{{ result.id }}</td>
+               
                 <ng-container *ngFor="let user of users">
                 <td width="15%" *ngIf="result.studentId === user.id">{{ user.firstName }} </td>
                 </ng-container>

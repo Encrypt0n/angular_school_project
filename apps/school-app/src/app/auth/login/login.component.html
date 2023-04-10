@@ -1,5 +1,6 @@
-<div class="component">
+<div class="container">
   <p>login works!</p>
+  <div class="row">
   <form #loginForm="ngForm" (ngSubmit)="loginForm.form.valid && onSubmit()">
     <!-- Email input -->
     <div class="form-outline mb-4">
@@ -15,10 +16,6 @@
 
 
 
-      <div class="col">
-        <!-- Simple link -->
-        <a href="#!">Forgot password?</a>
-      </div>
  
 
     <!-- Submit button -->
@@ -26,11 +23,7 @@
 
     <!-- Register buttons -->
     <div class="text-center">
-      <p>Not a member? <a routerLink="/dashboard">Register</a></p>
-      <p>or sign up with:</p>
-      <button type="button" class="btn btn-link btn-floating mx-1">
-        <i class="fab fa-facebook-f"></i>
-      </button>
+     
 
       <button type="button" class="btn btn-link btn-floating mx-1">
         <i class="fab fa-google"></i>
@@ -46,4 +39,5 @@
       </button>
     </div>
   </form>
+</div>
 </div>

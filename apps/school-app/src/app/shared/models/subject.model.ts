@@ -9,6 +9,6 @@ export interface Subject {
     description: string;
     credits: number;
     educations: Education[];
-    students: User[];
+
     education: string;
 }

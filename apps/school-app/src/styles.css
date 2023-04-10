@@ -3,9 +3,14 @@
 
 .component {
   border: solid green;
+  background-color: purple;
   margin: 5px;
   padding: 10px;
   min-height: 100px;
+}
+
+.container {
+  background-color: yellow;
 }
 
 

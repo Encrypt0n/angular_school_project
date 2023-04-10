@@ -39,15 +39,7 @@ export class User {
     @Prop({type: [ResultSchema]})
     results: Result[];
 
-    @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Subjects', required: true, autopopulate: true })
-    subjects: Subject[];
 
-    /*@Prop({type: [SubjectSchema]})
-    subjects: Subject[];*/
-
-
-    /*@Prop({ type: AddressSchema })
-    address: Address;*/
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

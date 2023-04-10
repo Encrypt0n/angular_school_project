@@ -15,6 +15,7 @@ import { AuthModule } from './app/auth/auth.module';
 import { DataModule } from './app/data.module';
 import { TokenMiddleware } from './app/auth/token.middleware';
 import { ApiResponseInterceptor } from './app/api-response.interceptor';
+import { Neo4jModule } from './app/neo4j/neo4j.module';
 
 let mongod: MongoMemoryServer;
 let uri: string;
@@ -37,9 +38,18 @@ let uri: string;
       path: 'data-api',
       module: DataModule,
     }]),
+    Neo4jModule.forRoot({
+        scheme: 'neo4j+s',
+        host: process.env['NEO4J_HOST'] || '',
+      username: process.env['NEO4J_USR']  || '',
+      password: process.env['NEO4J_PWD']  || '',
+      database: process.env['NEO4J_DB']  || '',
+    })
   ],
   controllers: [],
-  providers: [],
+  providers: [
+ 
+  ],
 })
 export class TestAppModule {
   configure(consumer: MiddlewareConsumer) {
@@ -61,7 +71,7 @@ describe('end-to-end tests of data API', () => {
     // contact me if you know how to do this better!
     // https://github.com/nestjs/nest/issues/4905
     module = await Test.createTestingModule({
-        imports: [TestAppModule],
+        imports: [TestAppModule], 
       })
       .compile();
 
@@ -121,13 +131,13 @@ describe('end-to-end tests of data API', () => {
   
       const token = login.body.results.token;
   
-      const meetups = await request(server)
+      const educations = await request(server)
         .get('/data-api/education')
         .set('authorization', token);
   
-      expect(meetups.status).toBe(200);
-      expect(meetups.body).toHaveProperty('info', {version: '1.0', type: 'list', count: 0});
-      expect(meetups.body).toHaveProperty('results', []);
+      expect(educations.status).toBe(200);
+      expect(educations.body).toHaveProperty('info', {version: '1.0', type: 'list', count: 0});
+      expect(educations.body).toHaveProperty('results', []);
     });
 
     it('user registers, logs in, sets education, education is found, removes education, education is found, looks up own account info', async () => {
@@ -333,97 +343,6 @@ describe('end-to-end tests of data API', () => {
 
   
 
-      /*const checkInvite = await request(server)
-        .get('/data-api/meetup/invite')
-        .set('authorization', tokenB);
-
-      expect(checkInvite.status).toBe(200);
-      expect(checkInvite.body).toHaveProperty('info', {version: '1.0', type: 'list', count: 1});
-      expect(checkInvite.body).toHaveProperty('results');
-      expect(checkInvite.body.results).toHaveLength(1);
-      expect(checkInvite.body.results[0]).toHaveProperty('topic', meetup.topic);
-      expect(checkInvite.body.results[0]).toHaveProperty('datetime', meetup.datetime.toISOString());
-      expect(checkInvite.body.results[0]).toHaveProperty('accepted', false);
-      expect(checkInvite.body.results[0]).toHaveProperty('pupil', {name: credsA.username, id: idA});
-      expect(checkInvite.body.results[0]).toHaveProperty('tutor', {name: credsB.username, id: idB});
-      
-      const acceptInvite = await request(server)
-        .post(`/data-api/meetup/${meetupId}/accept`)
-        .set('authorization', tokenB);
-      
-      expect(acceptInvite.status).toBe(201);
-      expect(acceptInvite.body).toHaveProperty('info', {version: '1.0', type: 'none', count: 0});
-
-      const checkMeetupListA = await request(server)
-        .get('/data-api/meetup')
-        .set('authorization', tokenA);
-
-      expect(checkMeetupListA.status).toBe(200);
-      expect(checkMeetupListA.body).toHaveProperty('info', {version: '1.0', type: 'list', count: 1});
-      expect(checkMeetupListA.body).toHaveProperty('results');
-      expect(checkMeetupListA.body.results).toHaveLength(1);
-      expect(checkMeetupListA.body.results[0]).toHaveProperty('id', meetupId);
-      expect(checkMeetupListA.body.results[0]).toHaveProperty('topic', topicA.title);
-      expect(checkMeetupListA.body.results[0]).toHaveProperty('datetime', meetup.datetime.toISOString());
-      expect(checkMeetupListA.body.results[0]).toHaveProperty('accepted', true);
-      expect(checkMeetupListA.body.results[0]).toHaveProperty('pupil', {name: credsA.username, id: idA});
-      expect(checkMeetupListA.body.results[0]).toHaveProperty('tutor', {name: credsB.username, id: idB});
-
-      const checkMeetupDetailB = await request(server)
-        .get(`/data-api/meetup/${meetupId}`)
-        .set('authorization', tokenB);
-
-      expect(checkMeetupDetailB.status).toBe(200);
-      expect(checkMeetupDetailB.body).toHaveProperty('info', {version: '1.0', type: 'object', count: 1});
-      expect(checkMeetupDetailB.body).toHaveProperty('results');
-      expect(checkMeetupDetailB.body.results).toHaveProperty('id', meetupId);
-      expect(checkMeetupDetailB.body.results).toHaveProperty('topic', topicA.title);
-      expect(checkMeetupDetailB.body.results).toHaveProperty('datetime', meetup.datetime.toISOString());
-      expect(checkMeetupDetailB.body.results).toHaveProperty('accepted', true);
-      expect(checkMeetupDetailB.body.results).toHaveProperty('pupil', {name: credsA.username, id: idA});
-      expect(checkMeetupDetailB.body.results).toHaveProperty('tutor', {name: credsB.username, id: idB});
-
-      const checkMeetupListC = await request(server)
-        .get('/data-api/meetup')
-        .set('authorization', tokenC);
-
-      expect(checkMeetupListC.status).toBe(200);
-      expect(checkMeetupListC.body).toHaveProperty('info', {version: '1.0', type: 'list', count: 0});
-      expect(checkMeetupListC.body).toHaveProperty('results');
-      expect(checkMeetupListC.body.results).toHaveLength(0);
-
-      const checkMeetupDetailC = await request(server)
-        .get(`/data-api/meetup/${meetupId}`)
-        .set('authorization', tokenC);
-
-      expect(checkMeetupDetailC.status).toBe(200);
-      expect(checkMeetupDetailC.body).toHaveProperty('info', {version: '1.0', type: 'none', count: 0});
-      
-      const review = {rating: 5, text: 'Goede hulp!'};
-
-      const leaveReview = await request(server)
-        .post(`/data-api/meetup/${meetupId}/review`)
-        .set('authorization', tokenA)
-        .send(review);
-        
-      expect(leaveReview.status).toBe(201);
-      expect(leaveReview.body).toHaveProperty('info', {version: '1.0', type: 'none', count: 0});
-
-      const checkReview = await request(server)
-        .get(`/data-api/meetup/${meetupId}`)
-        .set('authorization', tokenB);
-
-      expect(checkReview.status).toBe(200);
-      expect(checkReview.body).toHaveProperty('info', {version: '1.0', type: 'object', count: 1});
-      expect(checkReview.body).toHaveProperty('results');
-      expect(checkReview.body.results).toHaveProperty('id', meetupId);
-      expect(checkReview.body.results).toHaveProperty('topic', topicA.title);
-      expect(checkReview.body.results).toHaveProperty('datetime', meetup.datetime.toISOString());
-      expect(checkReview.body.results).toHaveProperty('accepted', true);
-      expect(checkReview.body.results).toHaveProperty('pupil', {name: credsA.username, id: idA});
-      expect(checkReview.body.results).toHaveProperty('tutor', {name: credsB.username, id: idB});
-      expect(checkReview.body.results).toHaveProperty('review', review);*/
-      
       const checkEducationList = await request(server)
         .get('/data-api/education')
         .set('authorization', tokenC);
@@ -436,45 +355,7 @@ describe('end-to-end tests of data API', () => {
       
 
       
-      /*expect(checkUserList.body.results.filter(u => u.id == idB)[0]).toHaveProperty('name', credsB.username);
-      expect(checkUserList.body.results.filter(u => u.id == idB)[0]).toHaveProperty('pupilTopics', []);
-      expect(checkUserList.body.results.filter(u => u.id == idB)[0]).toHaveProperty('tutorTopics', [topicB.title]);
-      expect(checkUserList.body.results.filter(u => u.id == idB)[0]).toHaveProperty('rating', 5);
-      expect(checkUserList.body.results.filter(u => u.id == idB)[0]).toHaveProperty('isActive', true);
-      expect(checkUserList.body.results.filter(u => u.id == idB)[0]).toHaveProperty('roles', []);
-      expect(checkUserList.body.results.filter(u => u.id == idB)[0]).toHaveProperty('emailAddress', credsB.emailAddress);
-      
-      expect(checkUserList.body.results.filter(u => u.id == idC)[0]).toHaveProperty('name', credsC.username);
-      expect(checkUserList.body.results.filter(u => u.id == idC)[0]).toHaveProperty('tutorTopics', []);
-      expect(checkUserList.body.results.filter(u => u.id == idC)[0]).toHaveProperty('pupilTopics', []);
-      expect(checkUserList.body.results.filter(u => u.id == idC)[0]).toHaveProperty('rating', null);
-      expect(checkUserList.body.results.filter(u => u.id == idC)[0]).toHaveProperty('isActive', true);
-      expect(checkUserList.body.results.filter(u => u.id == idC)[0]).toHaveProperty('roles', []);
-      expect(checkUserList.body.results.filter(u => u.id == idC)[0]).toHaveProperty('emailAddress', credsC.emailAddress);
-
-      const checkUserDetail = await request(server)
-        .get(`/data-api/user/${idB}`)
-        .set('authorization', tokenC);
-
-      expect(checkUserDetail.status).toBe(200);
-      expect(checkUserDetail.body).toHaveProperty('info', {version: '1.0', type: 'object', count: 1});
-      expect(checkUserDetail.body).toHaveProperty('results');
-      expect(checkUserDetail.body.results).toHaveProperty('name', credsB.username);
-      expect(checkUserDetail.body.results).toHaveProperty('pupilTopics', []);
-      expect(checkUserDetail.body.results).toHaveProperty('tutorTopics', [topicB.title]);
-      expect(checkUserDetail.body.results).toHaveProperty('rating', 5);
-      expect(checkUserDetail.body.results).toHaveProperty('reviews');
-      expect(checkUserDetail.body.results).toHaveProperty('isActive', true);
-      expect(checkUserDetail.body.results).toHaveProperty('roles', []);
-      expect(checkUserDetail.body.results).toHaveProperty('emailAddress', credsB.emailAddress);
-      expect(checkUserDetail.body.results.reviews).toHaveLength(1);
-      expect(checkUserDetail.body.results.reviews[0]).toHaveProperty('id', meetupId);
-      expect(checkUserDetail.body.results.reviews[0]).toHaveProperty('topic', topicA.title);
-      expect(checkUserDetail.body.results.reviews[0]).toHaveProperty('datetime', meetup.datetime.toISOString());
-      expect(checkUserDetail.body.results.reviews[0]).toHaveProperty('rating', review.rating);
-      expect(checkUserDetail.body.results.reviews[0]).toHaveProperty('text', review.text);
-      expect(checkUserDetail.body.results.reviews[0]).toHaveProperty('tutor', {name: credsB.username, id: idB});
-      expect(checkUserDetail.body.results.reviews[0]).toHaveProperty('pupil', {name: credsA.username, id: idA});*/
+  
     });
   
     it('two users register, log in, get list of users and their own account info', async () => {

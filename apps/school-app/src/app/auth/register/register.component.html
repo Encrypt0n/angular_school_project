@@ -5,26 +5,26 @@
   <div class="row">
       <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
 
-          <label for="firstName" class="form-label">Voornaam:</label>
+          <label for="firstName" class="form-label">Firstname:</label>
           <input [(ngModel)]="newUser!.firstName" type="name" class="form-control" #firstName="ngModel" name="firstName" required minlength="1">
-          <p *ngIf="!firstName.valid && firstName.touched" style="color:red"><i class="fa-solid fa-circle-xmark"></i> Vul uw voornaam in.</p>
+          <p *ngIf="!firstName.valid && firstName.touched" style="color:red"><i class="fa-solid fa-circle-xmark"></i>Fill in your firstname.</p>
 
-          <label for="lastName" class="form-label">Achternaam:</label>
+          <label for="lastName" class="form-label">Lastname:</label>
           <input [(ngModel)]="newUser!.lastName" type="name" class="form-control" #lastName="ngModel" name="lastName" required minlength="1">
-          <p *ngIf="!lastName.valid && lastName.touched" style="color:red"><i class="fa-solid fa-circle-xmark"></i> Vul uw achternaam in.</p>
+          <p *ngIf="!lastName.valid && lastName.touched" style="color:red"><i class="fa-solid fa-circle-xmark"></i>Fill in your lastname.</p>
 
           <label for="emailAddress" class="form-label">Email:</label>
           <input [(ngModel)]="newUser!.emailAddress" type="email" class="form-control" #emailAddress="ngModel" name="emailAddress" required pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,4}$">
-          <p *ngIf="!emailAddress.valid && emailAddress.touched" style="color:red"><i class="fa-solid fa-circle-xmark"></i> Niet valide emailadres.</p>
+          <p *ngIf="!emailAddress.valid && emailAddress.touched" style="color:red"><i class="fa-solid fa-circle-xmark"></i> Invalid emaildadress.</p>
 
           <label for="password" class="form-label">Wachtwoord:</label>
           <input [(ngModel)]="newUser!.password" type="password" class="form-control" #password="ngModel" name="password" required minlength="6">
-          <p *ngIf="!password.valid && password.touched" style="color:red"><i class="fa-solid fa-circle-xmark"></i> Vul een wachtwoord in met minimaal 6 karakters.</p>
+          <p *ngIf="!password.valid && password.touched" style="color:red"><i class="fa-solid fa-circle-xmark"></i>Fill in a password with a minimum of 6 characters.</p>
 
           <input [(ngModel)]="newUser!.role" type="hidden" class="form-control" #role="ngModel" name="role" value="student">
 
           <button [disabled]="!registerForm.valid" class="btn btn-primary mt-3" type="submit">Registreer</button>
-          <p>Al een account? <a class="ms-2 mt-3" routerLink="/auth/login">Login</a></p>
+    
       </form>
   </div>
 </div>
