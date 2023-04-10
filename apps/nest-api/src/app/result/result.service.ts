@@ -18,7 +18,7 @@ export class ResultService {
     async getAll(): Promise<Result[]> {
         console.log('API: get all results aangeroepen!');
 
-        let students: User[] = await this.authService.getAll();
+        let students: User[] = await this.userModel.find().populate('results.subject');
         let results: Result[] = [];
         students.forEach(student => {
             results.push(...student.results);
@@ -30,7 +30,7 @@ export class ResultService {
     }
 
     async getAllByStudent(id: string): Promise<Result[]> {
-        let student: User = await this.authService.getOne(id);
+        let student: User = await this.userModel.findOne({id: id}).populate('results.subject');
         console.log('API: get all results by student aangeroepen!');
         console.log(id);
         //let student = this.userModel.find({id: id});

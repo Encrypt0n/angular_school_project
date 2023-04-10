@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject } from 'apps/school-app/src/app/shared/models/subject.model';
+import { Subject } from '@school-app/data';
+
 import { SubjectService } from 'apps/school-app/src/app/shared/services/subject/subject.service';
 import { User } from '../../shared/models/user.model';
 import { UserService } from '../../shared/services/user/user.service';

@@ -3,12 +3,13 @@ import { Result } from 'apps/school-app/src/app/shared/models/result.model';
 import { ResultService } from 'apps/school-app/src/app/shared/services/result/result.service';
 
 import { UserService } from 'apps/school-app/src/app/shared/services/user/user.service';
-import { Subject } from 'apps/school-app/src/app/shared/models/subject.model';
+
 import { SubjectService } from 'apps/school-app/src/app/shared/services/subject/subject.service';
 import { IToken } from '../../auth/auth.interface';
 import { Observable } from 'rxjs';
 import { User } from 'libs/data/src/lib/user.model';
 import { ActivatedRoute } from '@angular/router';
+import { Subject } from '@school-app/data';
 
 
 @Component({

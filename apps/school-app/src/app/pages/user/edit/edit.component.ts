@@ -32,8 +32,7 @@ export class UserEditComponent implements OnInit {
           firstName: "",
           lastName: "",
           emailAddress: "",
-          phoneNumber: "",
-          city: "",
+      
           role: "",
         }
       }
