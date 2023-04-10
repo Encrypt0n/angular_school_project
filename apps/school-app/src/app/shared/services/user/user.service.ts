@@ -18,6 +18,7 @@ export class UserService {
     private readonly CURRENT_USER = 'currentuser';
     
 
+    
 
 constructor(private httpClient: HttpClient) {
   this.getUserFromLocalStorage()
@@ -37,10 +38,11 @@ constructor(private httpClient: HttpClient) {
 }
 
 
+private url = 'http://localhost:3333/api/data-api'
 
 getAllUsers(): Observable<User[]> {
     return this.httpClient
-      .get(`http://localhost:3333/api/data-api/user`, {
+      .get(this.url +`/user`, {
         headers: this.headers,
       })
       .pipe(
@@ -53,7 +55,7 @@ getAllUsers(): Observable<User[]> {
 
 getUserById(userId: string | undefined): Observable<User> {
     return this.httpClient
-      .get<User>(`http://localhost:3333/api/data-api/user/` + userId, {
+      .get<User>(this.url +`/user/` + userId, {
         headers: this.headers,
       })
       .pipe(
@@ -69,7 +71,7 @@ getUserById(userId: string | undefined): Observable<User> {
 
 deleteUser(id: string) {
   return this.httpClient.delete(
-    `http://localhost:3333/api/data-api/user/` + id,
+    this.url +`/user/` + id,
     {
       headers: this.headers,
     }
@@ -79,7 +81,7 @@ deleteUser(id: string) {
 updateUser(userToUpdate: User): Observable<Object> {
     
     return this.httpClient.put(
-        `http://localhost:3333/api/data-api/user/` + userToUpdate.id,
+        this.url + `/user/` + userToUpdate.id,
         userToUpdate,
         {
           headers: this.headers,
@@ -98,6 +100,8 @@ getUserFromLocalStorage(): Observable<IToken | undefined> {
 }
 
 getAuthorizationToken(): string | undefined {
+  
+  
   const user = localStorage.getItem(this.CURRENT_USER);
   if (user) {
     const localUser = JSON.parse(user);

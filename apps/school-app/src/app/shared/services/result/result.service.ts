@@ -20,12 +20,14 @@ export class ResultService {
 
 constructor(private httpClient: HttpClient, private userService: UserService) {}
 
+private url = 'http://localhost:3333/api/data-api'
+
 
 getAllResults(): Observable<Result[]> {
   
 
     return this.httpClient
-    .get(`http://localhost:3333/api/data-api/result`, {
+    .get(this.url +`/result`, {
       headers: this.headers,
     })
     .pipe(
@@ -41,7 +43,7 @@ getAllResults(): Observable<Result[]> {
 
 getResultsByStudent(id: string | null): Observable<Result[]> {
   return this.httpClient
-  .get(`http://localhost:3333/api/data-api/result/student/` + id, {
+  .get(this.url +`/result/student/` + id, {
     headers: this.headers,
   })
   .pipe(
@@ -56,7 +58,7 @@ getResultById(studentId: string, id: string | null): Observable<Result> {
   console.log(studentId);
   
     return this.httpClient
-    .get<Result>(`http://localhost:3333/api/data-api/result/`+ studentId + `/` + id, {
+    .get<Result>(this.url +`/result/`+ studentId + `/` + id, {
       headers: this.headers,
     })
     .pipe(
@@ -80,7 +82,7 @@ addResult(resultInfo: any): Observable<Object> {
     
 
     return this.httpClient
-      .post(`http://localhost:3333/api/data-api/result`, result, {
+      .post(this.url + `/result`, result, {
         headers: this.headers,
       })
 }
@@ -91,7 +93,7 @@ deleteResult(studentId: string, id: string): Observable<Object> {
     //let result = this.results.findIndex((result) => result.resultId == id);
     //this.results.splice(result, 1);
     return this.httpClient
-    .delete(`http://localhost:3333/api/data-api/result/` + studentId + `/` + id, {
+    .delete(this.url + `/result/` + studentId + `/` + id, {
       headers: this.headers,
     });
 }
@@ -100,7 +102,7 @@ updateResult(studentId: string, id: string, resultInfo: any): Observable<Object>
     
 
     return this.httpClient
-    .put(`http://localhost:3333/api/data-api/result/`+ studentId + `/` + id, resultInfo, {
+    .put(this.url + `/result/`+ studentId + `/` + id, resultInfo, {
       headers: this.headers,
     });
 }

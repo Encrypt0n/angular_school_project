@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="d-flex justify-content-between mt-3">
+        <h2 *ngIf="!isEdit">Create education</h2>
+        <h2 *ngIf="isEdit">Update education</h2>
+        <a class="btn btn-primary my-2" routerLink="../../">Back</a>
+    </div>
+    <hr>
+    <form #educationForm="ngForm" (ngSubmit)="educationForm.form.valid && onSubmit(educationForm)">
+        <input *ngIf="isEdit" type="hidden" id="id" name="id" [(ngModel)]="education!.id">
+        <div class="form-group my-3">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Fill in a name here"
+                #educationName="ngModel" [(ngModel)]="education!.name" required>
+        </div>
+        <div class="form-group my-3">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" id="description" name="description" placeholder="Fill in a description here"
+                 [(ngModel)]="education!.description" required>
+        </div>
+       
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

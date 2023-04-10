@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="d-flex justify-content-between mt-3">
+        <a class="btn btn-primary my-2" routerLink="../">Back</a>
+        <h2>Education details</h2>
+        
+    </div>
+    <hr>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name:</th>
+                <th scope="col">Description:</th>
+                <th scope="col">Subjects:</th>
+            
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                
+                <td>{{ education?.name }}</td>
+                <td>{{ education?.description }}</td>
+               
+                <ng-container *ngFor="let subject of education?.subjects">
+                    <td width="10%" >{{ subject?.name }} </td>
+                    </ng-container>
+            </tr>
+        </tbody>
+    </table>
+</div>

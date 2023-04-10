@@ -21,6 +21,10 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { EducationEditComponent } from './pages/education/edit/edit.component';
+import { EducationDetailComponent } from './pages/education/detail/detail.component';
+import { EducationComponent } from './pages/education/education.component';
+
 
 @NgModule({
   declarations: [
@@ -32,6 +36,9 @@ import { FooterComponent } from './shared/footer/footer.component';
     SubjectComponent,
     SubjectEditComponent,
     SubjectDetailComponent,
+    EducationComponent,
+    EducationEditComponent,
+    EducationDetailComponent,
     ResultComponent,
     ResultEditComponent,
     ResultDetailComponent,

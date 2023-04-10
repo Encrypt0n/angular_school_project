@@ -13,6 +13,9 @@ import { ResultDetailComponent } from './pages/result/detail/detail.component';
 import { ResultEditComponent } from './pages/result/edit/edit.component';
 import { ResultComponent } from './pages/result/result.component';
 import { AboutComponent } from './pages/about/about.component';
+import { EducationEditComponent } from './pages/education/edit/edit.component';
+import { EducationDetailComponent } from './pages/education/detail/detail.component';
+import { EducationComponent } from './pages/education/education.component';
 
 
 
@@ -29,6 +32,11 @@ const routes: Routes = [
   { path: 'subjects/add', pathMatch: 'full', component: SubjectEditComponent },
   { path: 'subjects/:id', pathMatch: 'full', component: SubjectDetailComponent },
   { path: 'subjects/:id/edit', pathMatch: 'full', component: SubjectEditComponent },
+
+  { path: 'educations', pathMatch: 'full', component: EducationComponent },
+  { path: 'educations/add', pathMatch: 'full', component: EducationEditComponent },
+  { path: 'educations/:id', pathMatch: 'full', component: EducationDetailComponent },
+  { path: 'educations/:id/edit', pathMatch: 'full', component: EducationEditComponent },
 
   { path: 'results', pathMatch: 'full', component: ResultComponent },
   { path: 'results/add', pathMatch: 'full', component: ResultEditComponent },

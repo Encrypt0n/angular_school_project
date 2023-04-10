@@ -21,9 +21,9 @@
                 <ng-container *ngFor="let user of users">
                 <td width="15%" *ngIf="result.studentId === user.id">{{ user.firstName }} </td>
                 </ng-container>
-                <ng-container *ngFor="let subject of subjects">
-                    <td width="10%" *ngIf="result.subject === subject._id">{{ subject.name }} </td>
-                    </ng-container>
+             
+                    <td width="10%" >{{ result.subject.name }} </td>
+                 
                 
                 <td width="10%">{{ result.grade }}</td>
                 <td width="10%">{{ result.rating }}</td>

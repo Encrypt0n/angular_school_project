@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="d-flex justify-content-between mt-3">
+        <h2>Education overview</h2>
+        <a class="btn btn-primary my-2" routerLink="add" *ngIf="user?.role === 'teacher'">Create education</a>
+    </div>
+    <hr>
+    <table class="table table-striped">
+        <thead>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            
+        </thead>
+        <tbody>
+            <tr *ngFor="let education of educations">
+                <td width="10%">{{ education.id }}</td>
+                <td width="15%">{{ education.name }}</td>
+                <td width="40%">{{ education.description }}</td>
+             
+                <td class="text-end">
+                    <a routerLink="{{education.id}}" class="btn btn-primary mx-2">Details</a>
+                    <a routerLink="{{education.id}}/edit" class="btn btn-warning mx-2" *ngIf="user?.role === 'teacher'">Edit</a>
+                    <a (click)="deleteEducation(education.id)" class=" btn btn-danger mx-2" *ngIf="user?.role === 'teacher'">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

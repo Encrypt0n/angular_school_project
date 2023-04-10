@@ -13,17 +13,17 @@
                 <th scope="col">Name:</th>
                 <th scope="col">Description:</th>
                 <th scope="col">Credits:</th>
-                <th scope="col">Students:</th>
+                <th scope="col">Educations:</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 
-                <td>{{ subject!.name }}</td>
-                <td>{{ subject!.description }}</td>
-                <td>{{ subject!.credits }}</td>
-                <ng-container *ngFor="let student of subject!.students">
-                    <td width="10%" >{{ student.firstName }} </td>
+                <td>{{ subject?.name }}</td>
+                <td>{{ subject?.description }}</td>
+                <td>{{ subject?.credits }}</td>
+                <ng-container *ngFor="let education of subject?.educations">
+                    <td width="10%" >{{ education?.name }} </td>
                     </ng-container>
             </tr>
         </tbody>

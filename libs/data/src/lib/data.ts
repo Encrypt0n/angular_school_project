@@ -8,3 +8,4 @@ export * from './register.model';
 export * from './login.model';
 export * from './subject.model';
 export * from './result.model';
+export * from './education.model';

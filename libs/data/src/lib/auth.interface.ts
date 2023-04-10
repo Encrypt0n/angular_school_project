@@ -8,7 +8,7 @@ export interface UserCredentials {
 export interface UserRegistration extends UserCredentials {
     firstName: string
     lastName: string
-    userId: string
+    
     role: Role
 
 

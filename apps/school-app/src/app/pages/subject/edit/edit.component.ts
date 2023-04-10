@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { Education, Subject } from '@school-app/data';
 
 import { SubjectService } from 'apps/school-app/src/app/shared/services/subject/subject.service';
-import { Subject } from 'libs/data/src/lib/subject.model';
+
+
+
+import { EducationService } from '../../../shared/services/education/education.service';
 
 @Component({
   selector: 'app-subjectEdit',
@@ -11,13 +15,20 @@ import { Subject } from 'libs/data/src/lib/subject.model';
   styleUrls: ['../edit/edit.component.css']
 })
 export class SubjectEditComponent implements OnInit {
-  subject: Subject = new Subject();
+  subject: Subject  = new Subject();
   isEdit: boolean = false;
   subjects: Subject[] = [];
+  educations: Education[] = []
 
-  constructor(private subjectService: SubjectService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private subjectService: SubjectService, private educationService: EducationService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+
+    this.educationService.getAllEducations().subscribe((educations) => {
+      this.educations = educations;
+      console.log(educations);
+    });
+
     this.route.paramMap.subscribe((params) => {
       let id = params.get("id");
       if (id) {
@@ -34,6 +45,8 @@ export class SubjectEditComponent implements OnInit {
           name: "",
           description: "",
           credits: 0,
+          educations: [],
+          education: "",
           students: []
           
         }

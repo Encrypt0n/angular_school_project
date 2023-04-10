@@ -1,6 +1,6 @@
 import { Type } from '@nestjs/common';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { User } from '@school-app/data';
+import { Education, User } from '@school-app/data';
 import mongoose, { Document, Schema as MongooseSchema } from 'mongoose';
 import { v4 as uuid } from 'uuid';
 import { UserSchema } from '../user/user.schema';
@@ -28,6 +28,9 @@ export class Subject {
         
     })
     credits: number;
+
+    @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Education' })
+    educations: Education[];
 
     @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'User' })
     students: User[];
